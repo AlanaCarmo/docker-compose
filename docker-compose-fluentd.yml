@@ -1,0 +1,18 @@
+version: '3.7'
+services:
+    fluentd:
+    user: root
+    container_name: fluentd
+    image: fluent/fluentd:v1.11-debian
+    volumes:
+      - /var/lib/docker/containers:/fluentd/log/containers
+      - ../configurations:/fluentd/etc/
+      - ../logs:/output/ # Exemplo: Fluentd irá coletar os logs e armazena-los nesta para demonstração.
+    ports:
+      - "9880:9880"
+    networks:
+      - fluentd
+
+networks:
+  fluentd:
+    driver: bridge
